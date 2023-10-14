@@ -5,7 +5,15 @@ resource "aws_vpc" "vpc" {
   tags = {
     Name = "${var.env}-vpc"
   }
-
 }
+
+module "subnets" {
+  source = "./subnets"
+  for_each = var.subnets
+ vpc_id = aws_vpc.vpc.id
+  cidr_block = each.value["cidr_block"]
+  env =var.env
+}
+
 
 
