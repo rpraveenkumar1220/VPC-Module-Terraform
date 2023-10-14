@@ -1,4 +1,4 @@
-resource "aws_vpc" "vpc" {
+resource "aws_vpc" "main" {
   cidr_block          = var.cidr_block
   enable_dns_support  = true
 
@@ -10,7 +10,7 @@ resource "aws_vpc" "vpc" {
 module "subnets" {
   source = "./subnets"
   for_each = var.subnets
- vpc_id = aws_vpc.vpc.id
+ vpc_id = aws_vpc.main.id
   cidr_block = each.value["cidr_block"]
   subnet_name = each.key
   env =var.env
