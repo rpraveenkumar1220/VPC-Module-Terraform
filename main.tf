@@ -5,4 +5,5 @@ resource "aws_vpc" "vpc" {
   tags = {
     Name = "${var.env}-vpc"
   }
+
 }
