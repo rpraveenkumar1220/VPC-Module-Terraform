@@ -6,6 +6,6 @@ resource "aws_subnet" "subnet" {
   tags = {
     Name = "${var.env}-${var.subnet_name}-subnet"
   }
-  availability_zone = "${var.az}"
+  availability_zone = element(var.az,count.index )
 
   }
