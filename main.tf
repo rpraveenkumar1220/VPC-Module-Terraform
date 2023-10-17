@@ -40,7 +40,23 @@ resource "aws_route" "route-igw" {
   route_table_id            = module.subnets["public"].route_table_ids
   destination_cidr_block    = "0.0.0.0/0"
   gateway_id = aws_internet_gateway.igw.id
+}
 
+resource "aws_eip" "el-Nat" {
+  domain   = "vpc"
+}
+
+
+resource "aws_nat_gateway" "example" {
+  allocation_id = aws_eip.el-Nat.id
+  subnet_id     =  lookup(module.subnets, "public", null), "subnet_ids" , null)[0]
+
+  tags = {
+    Name = "${var.env}-public-NAT"
+  }
+
+
+  depends_on = [aws_internet_gateway.igw]
 }
 
 
