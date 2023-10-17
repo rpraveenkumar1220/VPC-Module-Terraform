@@ -9,3 +9,13 @@ resource "aws_subnet" "subnet" {
   availability_zone = element(var.az,count.index )
 
   }
+
+
+resource "aws_route_table" "route_table" {
+  vpc_id = var.vpc_id
+
+
+  tags = {
+    Name = "${var.env}-${var.subnet_name}-rt"
+  }
+}
